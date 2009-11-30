@@ -77,6 +77,24 @@ class CheddarGetter
     normalize(response, 'customers', 'customer')
   end
   
+  # Add Item Quantity
+  # Increment a customer's current usage of a single item in the product with productCode=MY_PRODUCT_CODE
+  # By default, this will automatically increment by 1.
+  # quantity is only required if you wish to add more than one to the current usage amount. 
+  def increment_item(item_code, attributes)
+    response = post("/customers/add-item-quantity/productCode/#{@product_code}/code/#{customer_code}/itemCode/#{item_code}", :body => attributes)
+    normalize(response, 'customers', 'customer')
+  end
+  
+  # Remove Item Quantity
+  # Decrement a customer's current usage of a single item in the product with productCode=MY_PRODUCT_CODE
+  # By default, this will automatically increment by 1.
+  # quantity is only required if you wish to add more than one to the current usage amount. 
+  def decrement_item(item_code, attributes)
+    response = post("/customers/remove-item-quantity/productCode/#{@product_code}/code/#{customer_code}/itemCode/#{item_code}", :body => attributes)
+    normalize(response, 'customers', 'customer')
+  end
+  
   private
   
   def get(path)
